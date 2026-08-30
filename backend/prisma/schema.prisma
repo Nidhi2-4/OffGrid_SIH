@@ -1,0 +1,269 @@
+// Prisma schema for Integrated Polar Science Outreach Portal (SIH26063)
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector")]
+}
+
+enum Role {
+  public
+  researcher
+  comms_admin
+}
+
+enum FileType {
+  csv
+  json
+  pdf
+  other
+}
+
+enum MediaType {
+  photo
+  video
+}
+
+enum TagType {
+  location
+  topic
+  species
+  expedition
+}
+
+enum EntityType {
+  dataset
+  publication
+  media
+}
+
+enum SourceType {
+  dataset
+  publication
+}
+
+enum ContentType {
+  article
+  explainer
+  social_caption
+  press_kit
+}
+
+enum OutreachStatus {
+  draft
+  pending_review
+  approved
+  rejected
+  published
+}
+
+enum ApprovalDecision {
+  approved
+  rejected
+}
+
+model User {
+  id           String        @id @default(uuid()) @db.Uuid
+  email        String        @unique
+  name         String
+  role         Role          @default(public)
+  googleId     String?       @unique
+  passwordHash String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  researcher   Researcher?
+  approvalLogs ApprovalLog[]
+  queryLogs    AssistantQueryLog[]
+
+  @@map("users")
+}
+
+model Researcher {
+  id                String                 @id @default(uuid()) @db.Uuid
+  userId            String                 @unique @db.Uuid
+  bio               String?                @db.Text
+  expertise         String[]
+  profilePhotoUrl   String?
+  isPubliclyVisible Boolean                @default(true)
+
+  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expeditions       ResearcherExpedition[]
+  datasets          Dataset[]
+  publications      PublicationAuthor[]
+  media             Media[]
+
+  @@map("researchers")
+}
+
+model Station {
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String
+  latitude    Float
+  longitude   Float
+  description String?      @db.Text
+
+  expeditions Expedition[]
+
+  @@map("stations")
+}
+
+model Expedition {
+  id           String                 @id @default(uuid()) @db.Uuid
+  title        String
+  stationId    String                 @db.Uuid
+  startDate    DateTime
+  endDate      DateTime
+  description  String?                @db.Text
+  routeGeoJson Json?
+
+  station      Station                @relation(fields: [stationId], references: [id], onDelete: Cascade)
+  researchers  ResearcherExpedition[]
+  datasets     Dataset[]
+  publications Publication[]
+  media        Media[]
+
+  @@map("expeditions")
+}
+
+model ResearcherExpedition {
+  researcherId String     @db.Uuid
+  expeditionId String     @db.Uuid
+  role         String?    // e.g. "Lead Scientist", "Field Assistant"
+
+  researcher   Researcher @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+  expedition   Expedition @relation(fields: [expeditionId], references: [id], onDelete: Cascade)
+
+  @@id([researcherId, expeditionId])
+  @@map("researcher_expeditions")
+}
+
+model Dataset {
+  id                     String             @id @default(uuid()) @db.Uuid
+  title                  String
+  description            String?            @db.Text
+  fileUrl                String
+  fileType               FileType           @default(other)
+  expeditionId           String?            @db.Uuid
+  uploadedByResearcherId String             @db.Uuid
+  embeddingVector        Unsupported("vector")?
+  createdAt              DateTime           @default(now())
+
+  expedition             Expedition?        @relation(fields: [expeditionId], references: [id], onDelete: SetNull)
+  uploadedBy             Researcher         @relation(fields: [uploadedByResearcherId], references: [id], onDelete: Cascade)
+  publications           Publication[]
+
+  @@map("datasets")
+}
+
+model Publication {
+  id              String                  @id @default(uuid()) @db.Uuid
+  title           String
+  abstract        String?                 @db.Text
+  fileUrl         String
+  expeditionId    String?                 @db.Uuid
+  datasetId       String?                 @db.Uuid
+  embeddingVector Unsupported("vector")?
+  createdAt       DateTime                @default(now())
+
+  expedition      Expedition?             @relation(fields: [expeditionId], references: [id], onDelete: SetNull)
+  dataset         Dataset?                @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+  authors         PublicationAuthor[]
+
+  @@map("publications")
+}
+
+model PublicationAuthor {
+  publicationId String      @db.Uuid
+  researcherId  String      @db.Uuid
+
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+  researcher    Researcher  @relation(fields: [researcherId], references: [id], onDelete: Cascade)
+
+  @@id([publicationId, researcherId])
+  @@map("publication_authors")
+}
+
+model Media {
+  id                     String      @id @default(uuid()) @db.Uuid
+  type                   MediaType   @default(photo)
+  url                    String
+  caption                String?
+  expeditionId           String?     @db.Uuid
+  uploadedByResearcherId String      @db.Uuid
+  createdAt              DateTime    @default(now())
+
+  expedition             Expedition? @relation(fields: [expeditionId], references: [id], onDelete: SetNull)
+  uploadedBy             Researcher  @relation(fields: [uploadedByResearcherId], references: [id], onDelete: Cascade)
+
+  @@map("media")
+}
+
+model Tag {
+  id         String      @id @default(uuid()) @db.Uuid
+  name       String      @unique
+  type       TagType
+  entityTags EntityTag[]
+
+  @@map("tags")
+}
+
+model EntityTag {
+  tagId      String     @db.Uuid
+  entityType EntityType
+  entityId   String     @db.Uuid
+
+  tag        Tag        @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([tagId, entityType, entityId])
+  @@map("entity_tags")
+}
+
+model OutreachContent {
+  id               String           @id @default(uuid()) @db.Uuid
+  sourceType       SourceType
+  sourceId         String           @db.Uuid
+  contentType      ContentType
+  language         String           @default("en")
+  content          String           @db.Text
+  status           OutreachStatus   @default(draft)
+  generatedByModel String?          @default("mistral-large-3")
+  createdAt        DateTime         @default(now())
+  publishedAt      DateTime?
+
+  approvalLogs     ApprovalLog[]
+
+  @@map("outreach_content")
+}
+
+model ApprovalLog {
+  id                String           @id @default(uuid()) @db.Uuid
+  outreachContentId String           @db.Uuid
+  reviewedByUserId  String           @db.Uuid
+  decision          ApprovalDecision
+  notes             String?          @db.Text
+  createdAt         DateTime         @default(now())
+
+  outreachContent   OutreachContent  @relation(fields: [outreachContentId], references: [id], onDelete: Cascade)
+  reviewedBy        User             @relation(fields: [reviewedByUserId], references: [id], onDelete: Cascade)
+
+  @@map("approval_logs")
+}
+
+model AssistantQueryLog {
+  id             String    @id @default(uuid()) @db.Uuid
+  userId         String?   @db.Uuid
+  question       String    @db.Text
+  answer         String    @db.Text
+  citedSourceIds String[]
+  createdAt      DateTime  @default(now())
+
+  user           User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("assistant_query_logs")
+}

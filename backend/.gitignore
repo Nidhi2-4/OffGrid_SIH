@@ -1,0 +1,29 @@
+# Backend .gitignore
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Uploads directory (user submitted media & datasets)
+uploads/
+storage/
+
+# OS and Editor
+.DS_Store
+.idea/
+.vscode/
+
+# TypeScript
+*.tsbuildinfo

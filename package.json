@@ -1,0 +1,25 @@
+{
+  "name": "ncpor-polar-portal-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for Integrated Polar Science Outreach, Knowledge Repository and Media Dissemination Portal (SIH26063 - Team OffGrid)",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend"
+  },
+  "keywords": [
+    "sih26063",
+    "ncpor",
+    "moes",
+    "polar-portal"
+  ],
+  "author": "Team OffGrid",
+  "license": "ISC"
+}

@@ -1,0 +1,71 @@
+# ==========================================
+# Root .gitignore for NCPOR Polar Science Portal
+# ==========================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Build Outputs
+dist/
+*/dist/
+build/
+*/build/
+.next/
+*/.next/
+out/
+*/out/
+
+# Environment variables & secrets (keep .env.example)
+.env
+.env.*
+!.env.example
+!*/.env.example
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Uploaded media & datasets (local file storage)
+uploads/
+*/uploads/
+storage/
+*/storage/
+
+# Vercel & Deployment artifacts
+.vercel
+.turbo
+
+# TypeScript build info
+*.tsbuildinfo

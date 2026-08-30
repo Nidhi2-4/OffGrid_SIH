@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --navy-primary: #0B3D91;
+    --indigo-deep: #002147;
+    --saffron: #FF9933;
+    --green-accent: #138808;
+    --white-bg: #FFFFFF;
+    --grey-muted: #F2F2F2;
+    --text-primary: #333333;
+    --text-secondary: #5C5C5C;
+    --blue-link: #003366;
+    --border-grey: #CCCCCC;
+  }
+
+  body {
+    background-color: var(--white-bg);
+    color: var(--text-primary);
+    font-family: Arial, Verdana, sans-serif;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: bold;
+    color: var(--indigo-deep);
+  }
+
+  a {
+    color: var(--blue-link);
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
