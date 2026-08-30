@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, ExternalLink, ShieldCheck, Globe } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -21,15 +22,14 @@ export const GovFooter: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Col 1: Institutional Identity & Address */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-9 h-9 rounded-full bg-[#0B3D91] border border-[#FF9933] flex items-center justify-center text-lg">
-                ❄️
-              </div>
-              <div>
-                <div className="font-serif font-bold text-base leading-tight">HimSagar • हिमसागर</div>
-                <div className="text-[10px] text-[#FF9933] font-semibold uppercase">
-                  National Polar & Ocean Portal
-                </div>
+            <div className="bg-white/95 p-2 rounded-xs inline-block mb-3 border border-white/20">
+              <div className="relative h-9 w-36">
+                <Image
+                  src="/images/himsagar_logo.png"
+                  alt="HimSagar Logo"
+                  fill
+                  className="object-contain object-left"
+                />
               </div>
             </div>
             <p className="text-xs text-gray-300 leading-relaxed mb-4">

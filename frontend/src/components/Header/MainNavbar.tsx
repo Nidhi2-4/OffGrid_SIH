@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Compass, Bot, BarChart2, Users, FileText, Globe, LogIn, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -30,25 +31,29 @@ export const MainNavbar: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-2.5">
+        <div className="flex items-center justify-between py-2">
           {/* Logo & Portal Identity */}
-          <Link href="/" className="flex items-center gap-3 group">
-            {/* Emblem / Seal Placeholder */}
-            <div className="w-12 h-12 rounded-full bg-linear-to-br from-[#0B3D91] to-[#002147] border-2 border-[#FF9933] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform shrink-0">
-              <span className="text-xl">❄️🌊</span>
+          <Link href="/" className="flex items-center gap-3.5 group">
+            {/* Custom Transparent HimSagar Logo */}
+            <div className="relative h-11 w-36 sm:w-44 shrink-0 transition-transform group-hover:scale-102">
+              <Image
+                src="/images/himsagar_logo.png"
+                alt="HimSagar हिमसागर Logo"
+                fill
+                className="object-contain object-left"
+                priority
+              />
             </div>
 
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-2">
-                <span className="font-serif font-black text-2xl tracking-tight text-[#0B3D91]">
-                  HimSagar
-                </span>
-                <span className="text-[#FF9933] font-bold text-lg">हिमसागर</span>
-              </div>
-              <span className="text-[11px] font-semibold tracking-wide text-gray-700 uppercase">
+            {/* Vertical Institutional Divider */}
+            <div className="hidden sm:block h-9 w-[1.5px] bg-gray-300 mx-1" />
+
+            {/* Ministry & Centre Subtitle */}
+            <div className="hidden sm:flex flex-col justify-center">
+              <span className="text-[11px] font-black tracking-wide text-[#0B3D91] uppercase leading-tight">
                 National Polar & Ocean Knowledge Portal
               </span>
-              <span className="text-[10px] text-gray-500 font-medium">
+              <span className="text-[10px] text-gray-500 font-semibold leading-tight">
                 National Centre for Polar and Ocean Research (NCPOR) • MoES, Govt. of India
               </span>
             </div>
