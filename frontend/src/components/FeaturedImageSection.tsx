@@ -10,9 +10,7 @@ import {
   Compass, 
   BookOpen, 
   ExternalLink, 
-  Bot, 
   CheckCircle2, 
-  Tag, 
   GraduationCap, 
   Microscope,
   Calendar,
@@ -106,32 +104,6 @@ export default function FeaturedImageSection() {
               </div>
 
             </div>
-
-            {/* AI Auto-Extracted Tags (Demonstrates Platform PRD Feature) */}
-            <div className="bg-gray-50 rounded-md p-3.5 border border-gray-200">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                <Tag className="w-3.5 h-3.5 text-[#0B3D91]" />
-                <span>AI Auto-Extracted Entities (Mistral Large 3 Pipeline):</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-[#0B3D91] border border-blue-200 rounded">
-                  Species: Ursus maritimus
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Domain: Arctic Cryosphere
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Station: Himadri (Ny-Ålesund)
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Fjord: Kongsfjorden
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-amber-50 text-amber-900 border border-amber-300 rounded">
-                  Climate Metric: Sea-Ice Extent
-                </span>
-              </div>
-            </div>
-
           </div>
 
           {/* Right Column: AI Outreach Explanation & Knowledge Graph Connection */}
