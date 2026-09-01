@@ -26,12 +26,6 @@ export default function FeaturedImageSection() {
         
         {/* Section Header */}
         <div className="mb-8 pb-4 border-b border-gray-200">
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#138808]"></span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0B3D91]">
-              NCPOR Field Intelligence & AI Outreach Engine
-            </span>
-          </div>
           <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
             {t.featuredImageTitle}
           </h2>
