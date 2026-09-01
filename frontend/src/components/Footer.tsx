@@ -25,19 +25,21 @@ export default function Footer() {
         <div className="h-full w-1/3 bg-[#138808]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
 
           {/* Col 1: Institutional Identity */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center">
-              <Image
-                src="/Himsagar.png"
-                alt="HimSagar Logo"
-                width={300}
-                height={86}
-                className="h-16 sm:h-20 md:h-22 w-auto object-contain"
-              />
+              <div className="bg-white/95 rounded-md px-3 py-1.5 shadow-sm inline-block">
+                <Image
+                  src="/Himsagar.png"
+                  alt="HimSagar Logo"
+                  width={240}
+                  height={68}
+                  className="h-10 sm:h-12 w-auto object-contain"
+                />
+              </div>
             </div>
 
             <p className="text-gray-300 text-xs leading-relaxed font-sans">
