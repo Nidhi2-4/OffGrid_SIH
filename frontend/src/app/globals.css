@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'TheHeritageLegacy';
+  src: url('/fonts/TheHeritageLegacyFancyLogo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-heritage {
+  font-family: 'TheHeritageLegacy', var(--font-heritage), Georgia, serif;
+}
+
 @layer base {
   :root {
     --navy-primary: #0B3D91;
