@@ -5,6 +5,7 @@ import PolarStations from '@/components/PolarStations';
 import PlatformFeatures from '@/components/PlatformFeatures';
 import QuickStats from '@/components/QuickStats';
 import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export default function HomePage() {
   return (
@@ -32,6 +33,10 @@ export default function HomePage() {
 
       {/* Official MoES / NCPOR Footer */}
       <Footer />
+
+      {/* Floating Back to Top */}
+      <ScrollToTop />
     </div>
   );
 }
+
