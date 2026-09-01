@@ -57,34 +57,8 @@ export default function Header() {
             <span className="pl-3 text-blue-200 hidden md:inline text-[11px]">{t.ncporTitle}</span>
           </div>
 
-          {/* Right: Accessibility & LANGUAGE TOGGLE AT THE TOP RIGHT */}
+          {/* Right: LANGUAGE TOGGLE AT THE TOP RIGHT */}
           <div className="flex items-center space-x-3">
-            {/* Accessibility Font Size Buttons */}
-            <div className="hidden lg:flex items-center space-x-1 text-[11px] bg-blue-900/60 px-2 py-0.5 rounded border border-blue-800/60">
-              <span className="text-gray-300 mr-1">A/A:</span>
-              <button 
-                onClick={() => handleFontSize('normal')}
-                className={`px-1 rounded hover:text-white ${fontSize === 'normal' ? 'font-bold text-amber-300' : 'text-gray-300'}`}
-                title="Standard Text Size"
-              >
-                A-
-              </button>
-              <button 
-                onClick={() => handleFontSize('large')}
-                className={`px-1 rounded hover:text-white ${fontSize === 'large' ? 'font-bold text-amber-300' : 'text-gray-300'}`}
-                title="Larger Text Size"
-              >
-                A
-              </button>
-              <button 
-                onClick={() => handleFontSize('larger')}
-                className={`px-1 rounded hover:text-white ${fontSize === 'larger' ? 'font-bold text-amber-300' : 'text-gray-300'}`}
-                title="Extra Large Text Size"
-              >
-                A+
-              </button>
-            </div>
-
             {/* PROMINENT TOP-RIGHT LANGUAGE TOGGLE */}
             <div className="relative">
               <div className="flex items-center bg-[#0B3D91] hover:bg-blue-800 border border-blue-400/40 rounded-sm p-0.5 transition-all shadow-inner">
@@ -214,16 +188,8 @@ export default function Header() {
           {/* Right Action: Researcher Login Button */}
           <div className="hidden md:flex items-center space-x-2">
             <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#0B3D91] bg-blue-50/80 hover:bg-blue-100/90 border border-blue-200 rounded-md transition-all"
-            >
-              <Bot className="w-3.5 h-3.5 text-blue-700" />
-              <span>{t.aiAssistant}</span>
-            </Link>
-
-            <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-[#0B3D91] hover:bg-[#002147] rounded-md transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-[#0B3D91] hover:bg-[#002147] rounded-md transition-all shadow-xs"
             >
               <UserCheck className="w-3.5 h-3.5" />
               <span>{t.login}</span>

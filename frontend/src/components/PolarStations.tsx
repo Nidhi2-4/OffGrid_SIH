@@ -146,28 +146,17 @@ export default function PolarStations() {
                 </p>
               </div>
 
-              {/* Weather Telemetry Strip & Footer */}
-              <div>
-                <div className="bg-gray-50 border-t border-gray-100 px-4 py-2 flex items-center justify-between text-[11px] text-gray-700 font-mono">
-                  <span className="flex items-center gap-1">
-                    <Thermometer className="w-3.5 h-3.5 text-blue-600" />
-                    {st.temp}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Wind className="w-3.5 h-3.5 text-gray-500" />
-                    {st.wind}
-                  </span>
-                  <span className="text-[10px] text-gray-400">Est. {st.established}</span>
-                </div>
-
-                <div className="p-3 bg-white border-t border-gray-100">
-                  <Link
-                    href={`/map?station=${st.id}`}
-                    className="w-full py-1.5 px-2 text-center text-xs font-semibold text-[#0B3D91] hover:text-white bg-blue-50/70 hover:bg-[#0B3D91] rounded block transition-all"
-                  >
-                    View Station On Map →
-                  </Link>
-                </div>
+              {/* Weather Telemetry Strip */}
+              <div className="bg-gray-50 border-t border-gray-100 px-4 py-2.5 flex items-center justify-between text-[11px] text-gray-700 font-mono">
+                <span className="flex items-center gap-1">
+                  <Thermometer className="w-3.5 h-3.5 text-blue-600" />
+                  {st.temp}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Wind className="w-3.5 h-3.5 text-gray-500" />
+                  {st.wind}
+                </span>
+                <span className="text-[10px] text-gray-400">Est. {st.established}</span>
               </div>
             </div>
           ))}

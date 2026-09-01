@@ -16,61 +16,31 @@ import {
   GraduationCap, 
   Microscope,
   Calendar,
-  Layers,
-  Share2
+  Layers
 } from 'lucide-react';
 
 export default function FeaturedImageSection() {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<'simple' | 'detailed'>('simple');
-  const [copied, setCopied] = useState(false);
-
-  const handleShare = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   return (
     <section id="featured-observation" className="py-12 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gray-200 gap-4">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#138808]"></span>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0B3D91]">
-                NCPOR Field Intelligence & AI Outreach Engine
-              </span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
-              {t.featuredImageTitle}
-            </h2>
-            <p className="text-sm text-gray-600 mt-1 max-w-2xl font-sans">
-              {t.featuredImageSubtitle}
-            </p>
+        <div className="mb-8 pb-4 border-b border-gray-200">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#138808]"></span>
+            <span className="text-xs font-bold uppercase tracking-wider text-[#0B3D91]">
+              NCPOR Field Intelligence & AI Outreach Engine
+            </span>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded border border-gray-300 transition-colors"
-            >
-              <Share2 className="w-3.5 h-3.5" />
-              <span>{copied ? 'Link Copied!' : 'Share Observation'}</span>
-            </button>
-
-            <Link
-              href="/assistant"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#0B3D91] bg-blue-50 hover:bg-blue-100 rounded border border-blue-200 transition-colors"
-            >
-              <Bot className="w-3.5 h-3.5" />
-              <span>Ask AI About This</span>
-            </Link>
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
+            {t.featuredImageTitle}
+          </h2>
+          <p className="text-sm text-gray-600 mt-1 max-w-2xl font-sans">
+            {t.featuredImageSubtitle}
+          </p>
         </div>
 
         {/* Main Content Layout */}

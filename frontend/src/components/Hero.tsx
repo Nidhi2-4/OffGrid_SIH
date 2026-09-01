@@ -7,7 +7,6 @@ import { useLanguage } from '@/context/LanguageContext';
 import { 
   Bot, 
   MapPin, 
-  Database, 
   ArrowRight, 
   Sparkles, 
   ShieldCheck, 
@@ -55,14 +54,6 @@ export default function Hero() {
               >
                 <Bot className="w-4 h-4 text-blue-700 group-hover:scale-110 transition-transform" />
                 <span>{t.askAssistantBtn}</span>
-              </Link>
-
-              <Link
-                href="/explore"
-                className="inline-flex items-center gap-2 px-4 py-3 text-sm font-semibold text-gray-700 hover:text-[#0B3D91] hover:bg-gray-100/80 rounded transition-colors"
-              >
-                <Database className="w-4 h-4 text-gray-500" />
-                <span>{t.exploreDataBtn}</span>
               </Link>
             </div>
 
