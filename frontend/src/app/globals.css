@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  --font-serif: "Times New Roman", Times, Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 @layer base {
@@ -12,35 +12,49 @@
     --saffron: #FF9933;
     --green-accent: #138808;
     --white-bg: #FFFFFF;
-    --grey-muted: #F2F2F2;
-    --text-primary: #333333;
-    --text-secondary: #5C5C5C;
-    --blue-link: #003366;
-    --border-grey: #CCCCCC;
+    --grey-muted: #F8FAFC;
+    --text-primary: #1E293B;
+    --text-secondary: #475569;
+    --blue-link: #0B3D91;
+    --border-grey: #E2E8F0;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--white-bg);
     color: var(--text-primary);
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.5;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Times New Roman", Times, Georgia, serif;
-    font-weight: bold;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+    font-weight: 700;
     color: var(--indigo-deep);
+    letter-spacing: -0.01em;
   }
 
-  p, span, a, button, input, label, select, textarea, div {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  /* Sleek custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 
-  a {
-    color: var(--blue-link);
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
   }
 
-  a:hover {
-    text-decoration: underline;
+  ::-webkit-scrollbar-thumb {
+    background: #94A3B8;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748B;
   }
 }
+
