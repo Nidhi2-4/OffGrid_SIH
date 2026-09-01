@@ -21,15 +21,15 @@ export default function FeaturedImageSection() {
   const [activeTab, setActiveTab] = useState<'simple' | 'detailed'>('simple');
 
   return (
-    <section id="featured-observation" className="py-12 bg-white border-b border-gray-200">
+    <section id="featured-observation" className="py-8 sm:py-10 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="mb-8 pb-4 border-b border-gray-200">
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
+        <div className="mb-6 pb-3 border-b border-gray-200">
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
             {t.featuredImageTitle}
           </h2>
-          <p className="text-sm text-gray-600 mt-1 max-w-2xl font-sans">
+          <p className="text-xs sm:text-sm text-gray-600 mt-1 max-w-2xl font-sans">
             {t.featuredImageSubtitle}
           </p>
         </div>

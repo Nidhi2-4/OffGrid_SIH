@@ -76,11 +76,11 @@ export default function PolarStations() {
   ];
 
   return (
-    <section className="py-12 bg-gray-50/80 border-b border-gray-200">
+    <section className="py-8 sm:py-10 bg-gray-50/80 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-3 border-b border-gray-200 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 pb-3 border-b border-gray-200 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Snowflake className="w-4 h-4 text-[#0B3D91]" />
@@ -88,10 +88,10 @@ export default function PolarStations() {
                 National Polar Infrastructure
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
+            <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
               {t.stationsTitle}
             </h2>
-            <p className="text-sm text-gray-600 mt-1 font-sans">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1 font-sans">
               {t.stationsSubtitle}
             </p>
           </div>
