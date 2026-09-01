@@ -1,13 +1,6 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import './globals.css';
 import { LanguageProvider } from '@/context/LanguageContext';
-
-const heritageFont = localFont({
-  src: '../fonts/TheHeritageLegacyFancyLogo.otf',
-  variable: '--font-heritage',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'HimSagar • National Polar & Ocean Science Knowledge Portal',
@@ -26,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={heritageFont.variable}>
-      <body className={`antialiased min-h-screen flex flex-col bg-white text-gray-900 selection:bg-blue-900 selection:text-white ${heritageFont.variable}`}>
+    <html lang="en">
+      <body className="antialiased min-h-screen flex flex-col bg-white text-gray-900 selection:bg-blue-900 selection:text-white font-sans">
         <LanguageProvider>
           {children}
         </LanguageProvider>
