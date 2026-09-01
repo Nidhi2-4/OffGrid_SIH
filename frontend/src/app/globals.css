@@ -7,15 +7,16 @@
 
 @layer base {
   :root {
-    --navy-primary: #0B3D91;
-    --indigo-deep: #002147;
+    --navy-primary: #0F5167;
+    --indigo-deep: #093443;
     --saffron: #FF9933;
     --green-accent: #138808;
     --white-bg: #FFFFFF;
     --grey-muted: #F8FAFC;
     --text-primary: #1E293B;
     --text-secondary: #475569;
-    --blue-link: #0B3D91;
+    --blue-link: #0F5167;
+    --ice-cyan: #7BCCEA;
     --border-grey: #E2E8F0;
   }
 

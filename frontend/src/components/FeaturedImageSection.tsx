@@ -26,7 +26,7 @@ export default function FeaturedImageSection() {
         
         {/* Section Header */}
         <div className="mb-6 pb-3 border-b border-gray-200">
-          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#093443]">
             {t.featuredImageTitle}
           </h2>
           <p className="text-xs sm:text-sm text-gray-600 mt-1 max-w-2xl font-sans">
@@ -54,13 +54,13 @@ export default function FeaturedImageSection() {
                 />
 
                 {/* Floating Coordinate Pill */}
-                <div className="absolute top-3 left-3 bg-[#002147]/90 backdrop-blur-xs text-white text-xs px-2.5 py-1 rounded border border-blue-400/30 flex items-center gap-1.5 shadow-sm">
+                <div className="absolute top-3 left-3 bg-[#093443]/90 backdrop-blur-xs text-white text-xs px-2.5 py-1 rounded border border-[#7BCCEA]/30 flex items-center gap-1.5 shadow-sm">
                   <MapPin className="w-3.5 h-3.5 text-amber-400" />
                   <span className="font-mono">{t.imageCoordsTag}</span>
                 </div>
 
                 {/* Live Verification Stamp */}
-                <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-[#0B3D91] text-[11px] font-bold px-2 py-1 rounded border border-gray-300 flex items-center gap-1 shadow-sm">
+                <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-[#0F5167] text-[11px] font-bold px-2 py-1 rounded border border-gray-300 flex items-center gap-1 shadow-sm">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   <span>MoES Verified Asset</span>
                 </div>
@@ -82,18 +82,18 @@ export default function FeaturedImageSection() {
               </div>
 
               {/* Technical EXIF & Ingestion Strip */}
-              <div className="bg-[#002147] text-blue-100 text-[11px] px-4 py-2 flex flex-wrap items-center justify-between gap-2 border-t border-blue-900">
+              <div className="bg-[#093443] text-teal-100 text-[11px] px-4 py-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#06242F]">
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1 font-mono">
                     <Calendar className="w-3 h-3 text-amber-400" />
                     Ingested: 2024-08-14
                   </span>
                   <span className="flex items-center gap-1 font-mono">
-                    <Compass className="w-3 h-3 text-cyan-400" />
+                    <Compass className="w-3 h-3 text-[#7BCCEA]" />
                     Bearing: 342° NW
                   </span>
                 </div>
-                <span className="font-mono text-amber-300">Sensor: MoES Field Telemetry CAM-04</span>
+                <span className="font-mono text-amber-300">Status: Verified Observation Record</span>
               </div>
 
             </div>
@@ -103,11 +103,11 @@ export default function FeaturedImageSection() {
           <div className="lg:col-span-5 space-y-4">
             
             {/* Explainer Card with Toggle (Core SIH Feature) */}
-            <div className="bg-white rounded-lg border-2 border-blue-200/90 shadow-sm p-5 space-y-4">
+            <div className="bg-white rounded-lg border-2 border-teal-100 shadow-sm p-5 space-y-4">
               
               {/* Header with Student vs Researcher Toggle */}
               <div className="flex items-center justify-between border-b border-gray-200 pb-3">
-                <span className="text-xs font-extrabold uppercase tracking-wide text-[#0B3D91] flex items-center gap-1.5">
+                <span className="text-xs font-extrabold uppercase tracking-wide text-[#0F5167] flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-amber-500" />
                   AI Outreach Engine
                 </span>
@@ -118,7 +118,7 @@ export default function FeaturedImageSection() {
                     onClick={() => setActiveTab('simple')}
                     className={`flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded transition-all ${
                       activeTab === 'simple'
-                        ? 'bg-[#0B3D91] text-white shadow-xs'
+                        ? 'bg-[#0F5167] text-white shadow-xs'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -130,7 +130,7 @@ export default function FeaturedImageSection() {
                     onClick={() => setActiveTab('detailed')}
                     className={`flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded transition-all ${
                       activeTab === 'detailed'
-                        ? 'bg-[#0B3D91] text-white shadow-xs'
+                        ? 'bg-[#0F5167] text-white shadow-xs'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >

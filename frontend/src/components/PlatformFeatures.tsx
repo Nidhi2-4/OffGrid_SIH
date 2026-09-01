@@ -3,16 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
-import { 
-  Network, 
-  Bot, 
-  BarChart3, 
-  Languages, 
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle,
-  FileSpreadsheet,
-  Cpu
+import {
+  Network,
+  Bot,
+  BarChart3,
+  Languages,
+  ArrowRight
 } from 'lucide-react';
 
 export default function PlatformFeatures() {
@@ -60,14 +56,11 @@ export default function PlatformFeatures() {
   return (
     <section className="py-9 sm:py-12 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded bg-blue-50 border border-blue-200 text-[#0B3D91] text-[11px] font-bold uppercase tracking-wider mb-2">
-            <Cpu className="w-3.5 h-3.5" />
-            Smart Education & Open Data Framework
-          </div>
-          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
+
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#093443]">
             {t.featuresTitle}
           </h2>
           <p className="text-xs sm:text-sm text-gray-600 mt-1.5 font-sans">
@@ -82,7 +75,7 @@ export default function PlatformFeatures() {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-lg border border-gray-200 p-5 hover:border-[#0B3D91] hover:shadow-md transition-all flex flex-col justify-between group"
+                className="bg-white rounded-lg border border-gray-200 p-5 hover:border-[#0F5167] hover:shadow-md transition-all flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
@@ -94,7 +87,7 @@ export default function PlatformFeatures() {
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold font-serif text-[#002147] group-hover:text-[#0B3D91] transition-colors">
+                  <h3 className="text-base font-bold font-serif text-[#093443] group-hover:text-[#0F5167] transition-colors">
                     {item.title}
                   </h3>
 
@@ -106,7 +99,7 @@ export default function PlatformFeatures() {
                 <div className="pt-4 mt-4 border-t border-gray-100">
                   <Link
                     href={item.link}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0B3D91] hover:text-blue-700 group-hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0F5167] hover:text-teal-700 group-hover:underline"
                   >
                     <span>{item.linkText}</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -115,30 +108,6 @@ export default function PlatformFeatures() {
               </div>
             );
           })}
-        </div>
-
-        {/* Verification Banner */}
-        <div className="mt-10 bg-linear-to-r from-blue-900 to-[#002147] text-white rounded-lg p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-white/10 rounded-full shrink-0 border border-white/20">
-              <ShieldCheck className="w-8 h-8 text-amber-300" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-white font-serif">
-                Institutional Quality & Human-in-the-Loop Review
-              </h4>
-              <p className="text-xs text-blue-200 mt-0.5 max-w-xl">
-                Every AI-generated article and regional translation passes through NCPOR Communications Officers before public publication.
-              </p>
-            </div>
-          </div>
-
-          <Link
-            href="/articles"
-            className="shrink-0 px-4 py-2 text-xs font-bold text-[#002147] bg-white hover:bg-amber-300 rounded transition-colors shadow-xs"
-          >
-            Browse Approved Stories →
-          </Link>
         </div>
 
       </div>

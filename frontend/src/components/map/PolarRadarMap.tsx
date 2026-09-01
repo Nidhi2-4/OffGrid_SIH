@@ -5,12 +5,14 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapEntity, EntityCategory, POLAR_REGIONS } from '@/data/polarMapData';
 
+export type MapTileLayer = 'dark' | 'ocean' | 'satellite' | 'hybrid' | 'terrain' | 'roadmap' | 'light';
+
 interface PolarRadarMapProps {
   entities: MapEntity[];
   selectedEntity: MapEntity | null;
   onSelectEntity: (entity: MapEntity) => void;
   activeRegion: string;
-  tileLayerType: 'dark' | 'satellite' | 'street';
+  tileLayerType: MapTileLayer;
 }
 
 export default function PolarRadarMap({
@@ -22,7 +24,8 @@ export default function PolarRadarMap({
 }: PolarRadarMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
-  const tileLayerRef = useRef<L.TileLayer | null>(null);
+  const baseTileLayerRef = useRef<L.TileLayer | null>(null);
+  const overlayTileLayerRef = useRef<L.TileLayer | null>(null);
   const markerGroupRef = useRef<L.LayerGroup | null>(null);
   const routeGroupRef = useRef<L.LayerGroup | null>(null);
 
@@ -57,32 +60,66 @@ export default function PolarRadarMap({
     };
   }, []);
 
-  // Update Tile Layer
+  // Update Tile Layer with 7 supported layer styles
   useEffect(() => {
     if (!mapInstanceRef.current) return;
     const map = mapInstanceRef.current;
 
-    if (tileLayerRef.current) {
-      map.removeLayer(tileLayerRef.current);
+    // Remove previous base & overlay layers
+    if (baseTileLayerRef.current) {
+      map.removeLayer(baseTileLayerRef.current);
+      baseTileLayerRef.current = null;
+    }
+    if (overlayTileLayerRef.current) {
+      map.removeLayer(overlayTileLayerRef.current);
+      overlayTileLayerRef.current = null;
     }
 
-    let url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
-    let attribution = '&copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, DeLorme, NAVTEQ';
+    let baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+    let overlayUrl: string | null = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+    let attribution = '&copy; <a href="https://www.esri.com/">Esri</a> &mdash; GIS User Community';
 
-    if (tileLayerType === 'satellite') {
-      url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-      attribution = '&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics';
-    } else if (tileLayerType === 'street') {
-      url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}';
+    if (tileLayerType === 'ocean') {
+      baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}';
+      overlayUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}';
       attribution = '&copy; <a href="https://www.esri.com/">Esri</a>, GEBCO, NOAA, National Geographic';
+    } else if (tileLayerType === 'satellite') {
+      baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      overlayUrl = null;
+      attribution = '&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics';
+    } else if (tileLayerType === 'hybrid') {
+      baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      overlayUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}';
+      attribution = '&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, GeoEye';
+    } else if (tileLayerType === 'terrain') {
+      baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+      overlayUrl = null;
+      attribution = '&copy; <a href="https://www.esri.com/">Esri</a> &mdash; World Topographic Map';
+    } else if (tileLayerType === 'roadmap') {
+      baseUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      overlayUrl = null;
+      attribution = '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors';
+    } else if (tileLayerType === 'light') {
+      baseUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+      overlayUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+      attribution = '&copy; <a href="https://www.esri.com/">Esri</a> &mdash; Light Gray Canvas';
     }
 
-    const newLayer = L.tileLayer(url, {
+    const newBaseLayer = L.tileLayer(baseUrl, {
       attribution,
       maxZoom: 18,
+      subdomains: 'abc',
     }).addTo(map);
 
-    tileLayerRef.current = newLayer;
+    baseTileLayerRef.current = newBaseLayer;
+
+    if (overlayUrl) {
+      const newOverlayLayer = L.tileLayer(overlayUrl, {
+        maxZoom: 18,
+        pane: 'overlayPane',
+      }).addTo(map);
+      overlayTileLayerRef.current = newOverlayLayer;
+    }
   }, [tileLayerType]);
 
   // Handle Region Flying
@@ -144,10 +181,12 @@ export default function PolarRadarMap({
         iconHtml = `
           <div class="relative group cursor-pointer">
             <div class="absolute -inset-2 bg-amber-500/30 rounded-full animate-ping pointer-events-none"></div>
-            <div class="relative flex items-center gap-1 bg-[#001833] border-2 ${
-              isSelected ? 'border-amber-400 scale-125 shadow-[0_0_20px_#F59E0B]' : 'border-amber-500 shadow-lg'
+            <div class="relative flex items-center gap-1.5 bg-[#00142B] border-2 ${
+              isSelected ? 'border-amber-400 scale-125 shadow-[0_0_20px_#F59E0B]' : 'border-amber-500 shadow-xl'
             } text-amber-300 px-2 py-1 rounded-full text-[11px] font-bold font-mono transition-transform duration-200 hover:scale-115">
-              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
               <span>${entity.title.split(' ')[0]}</span>
               ${entity.telemetry?.temperature ? `<span class="text-[9px] text-gray-300 border-l border-amber-500/50 pl-1">${entity.telemetry.temperature}</span>` : ''}
             </div>
@@ -157,46 +196,51 @@ export default function PolarRadarMap({
         iconHtml = `
           <div class="relative group cursor-pointer">
             <div class="absolute -inset-2 bg-cyan-500/30 rounded-full animate-pulse pointer-events-none"></div>
-            <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-[#001833] border-2 ${
-              isSelected ? 'border-cyan-300 scale-125 shadow-[0_0_20px_#06B6D4]' : 'border-cyan-500 shadow-md'
+            <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-[#00142B] border-2 ${
+              isSelected ? 'border-cyan-300 scale-125 shadow-[0_0_20px_#06B6D4]' : 'border-cyan-400 shadow-xl'
             } text-cyan-300 transition-transform duration-200 hover:scale-120">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20m0 0l-7-7m7 7l7-7M5 12h14"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17l2-6h14l2 6M6 17a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm9 0a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zM12 4v7m-3-3h6"/>
               </svg>
             </div>
           </div>
         `;
       } else if (entity.category === 'dataset') {
         iconHtml = `
-          <div class="relative cursor-pointer">
-            <div class="flex items-center gap-1 bg-[#001833]/95 border ${
-              isSelected ? 'border-emerald-300 scale-120 shadow-[0_0_15px_#10B981]' : 'border-emerald-500 shadow'
-            } text-emerald-300 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold transition-transform hover:scale-115">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span>DATA</span>
+          <div class="relative group cursor-pointer">
+            <div class="relative flex items-center justify-center w-7 h-7 rounded-lg bg-[#00142B] border-2 ${
+              isSelected ? 'border-emerald-300 scale-125 shadow-[0_0_18px_#10B981]' : 'border-emerald-400 shadow-xl'
+            } text-emerald-300 transition-transform duration-200 hover:scale-120">
+              <svg class="w-3.5 h-3.5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <ellipse cx="12" cy="5" rx="9" ry="3" stroke-width="2"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+              <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             </div>
           </div>
         `;
       } else if (entity.category === 'publication') {
         iconHtml = `
-          <div class="relative cursor-pointer">
-            <div class="flex items-center gap-1 bg-[#001833]/95 border ${
-              isSelected ? 'border-indigo-300 scale-120 shadow-[0_0_15px_#818CF8]' : 'border-indigo-500 shadow'
-            } text-indigo-300 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold transition-transform hover:scale-115">
-              <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-              <span>PAPER</span>
+          <div class="relative group cursor-pointer">
+            <div class="relative flex items-center justify-center w-7 h-7 rounded-lg bg-[#00142B] border-2 ${
+              isSelected ? 'border-indigo-300 scale-125 shadow-[0_0_18px_#818CF8]' : 'border-indigo-400 shadow-xl'
+            } text-indigo-300 transition-transform duration-200 hover:scale-120">
+              <svg class="w-3.5 h-3.5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
             </div>
           </div>
         `;
       } else if (entity.category === 'media') {
         iconHtml = `
-          <div class="relative cursor-pointer">
-            <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#001833] border ${
-              isSelected ? 'border-pink-300 scale-120 shadow-[0_0_15px_#EC4899]' : 'border-pink-500 shadow'
-            } text-pink-300 transition-transform hover:scale-115">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="relative group cursor-pointer">
+            <div class="relative flex items-center justify-center w-7 h-7 rounded-full bg-[#00142B] border-2 ${
+              isSelected ? 'border-pink-300 scale-125 shadow-[0_0_18px_#EC4899]' : 'border-pink-400 shadow-xl'
+            } text-pink-300 transition-transform duration-200 hover:scale-120">
+              <svg class="w-3.5 h-3.5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <circle cx="12" cy="13" r="3" stroke-width="2"/>
               </svg>
             </div>
           </div>

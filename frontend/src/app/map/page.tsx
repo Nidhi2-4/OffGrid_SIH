@@ -8,6 +8,8 @@ import Header from '@/components/Header';
 import MapHUD from '@/components/map/MapHUD';
 import EntityDrawer from '@/components/map/EntityDrawer';
 import MapTimelineBar from '@/components/map/MapTimelineBar';
+import MapLegend from '@/components/map/MapLegend';
+import { MapTileLayer } from '@/components/map/PolarRadarMap';
 import { 
   MAP_ENTITIES, 
   MapEntity, 
@@ -48,7 +50,7 @@ export default function PolarMapPage() {
     new Set<EntityCategory>(['station', 'expedition', 'dataset', 'publication', 'media'])
   );
   const [activeRegion, setActiveRegion] = useState('all');
-  const [tileLayer, setTileLayer] = useState<'dark' | 'satellite' | 'street'>('dark');
+  const [tileLayer, setTileLayer] = useState<MapTileLayer>('roadmap');
   const [selectedEntity, setSelectedEntity] = useState<MapEntity | null>(null);
   const [selectedYear, setSelectedYear] = useState<number>(2024);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -121,6 +123,14 @@ export default function PolarMapPage() {
     }
   };
 
+  // Reset view to Global and all years
+  const handleResetView = () => {
+    setSelectedYear(2024);
+    setActiveRegion('all');
+    setSelectedEntity(null);
+    setSearchQuery('');
+  };
+
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#000b18] flex flex-col font-sans select-none">
       
@@ -164,11 +174,12 @@ export default function PolarMapPage() {
         <MapTimelineBar
           selectedYear={selectedYear}
           setSelectedYear={setSelectedYear}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
           minYear={1981}
           maxYear={2024}
         />
+
+        {/* Bottom-Left Map Index & Legend */}
+        <MapLegend />
 
         {/* Side Flight Detail Inspection Drawer */}
         {selectedEntity && (
