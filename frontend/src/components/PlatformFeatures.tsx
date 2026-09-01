@@ -58,19 +58,19 @@ export default function PlatformFeatures() {
   ];
 
   return (
-    <section className="py-14 bg-white border-b border-gray-200">
+    <section className="py-9 sm:py-12 bg-white border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-blue-50 border border-blue-200 text-[#0B3D91] text-xs font-bold uppercase tracking-wider mb-2">
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded bg-blue-50 border border-blue-200 text-[#0B3D91] text-[11px] font-bold uppercase tracking-wider mb-2">
             <Cpu className="w-3.5 h-3.5" />
             Smart Education & Open Data Framework
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
             {t.featuresTitle}
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 mt-2 font-sans">
+          <p className="text-xs sm:text-sm text-gray-600 mt-1.5 font-sans">
             {t.featuresSubtitle}
           </p>
         </div>
