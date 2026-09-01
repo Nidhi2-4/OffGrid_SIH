@@ -277,11 +277,8 @@ export default function AssistantChat() {
         
         {/* Welcome Banner when empty */}
         {messages.length === 0 && (
-          <div className="space-y-6 pt-4">
+          <div className="space-y-6 pt-2">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <div className="inline-flex p-3 rounded-2xl bg-teal-50 border border-teal-200 text-[#0F5167] mb-2 shadow-sm">
-                <Bot className="w-8 h-8" />
-              </div>
               <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#093443] tracking-tight">
                 HimSagar AI Polar Research Assistant
               </h2>

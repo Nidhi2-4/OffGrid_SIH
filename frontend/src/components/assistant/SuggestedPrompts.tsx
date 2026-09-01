@@ -18,14 +18,9 @@ export default function SuggestedPrompts({ onSelectPrompt }: SuggestedPromptsPro
           <div className="p-1.5 rounded-md bg-teal-50 border border-teal-200 text-[#0F5167]">
             <Compass className="w-4 h-4" />
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-[#093443] tracking-wide font-serif">
-              Suggested Polar Science Research Queries
-            </h3>
-            <p className="text-xs text-gray-600">
-              Select a domain query below or type your own question with RAG citation grounding.
-            </p>
-          </div>
+          <h3 className="text-sm font-bold text-[#093443] tracking-wide font-serif">
+            Suggested Polar Science Research Queries
+          </h3>
         </div>
       </div>
 
