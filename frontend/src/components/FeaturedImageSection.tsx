@@ -13,8 +13,7 @@ import {
   CheckCircle2, 
   GraduationCap, 
   Microscope,
-  Calendar,
-  Layers
+  Calendar
 } from 'lucide-react';
 
 export default function FeaturedImageSection() {
@@ -180,41 +179,6 @@ export default function FeaturedImageSection() {
                 </Link>
               </div>
 
-            </div>
-
-            {/* Knowledge Graph Card (Connecting entities) */}
-            <div className="bg-[#002147] text-white rounded-lg p-4 border border-blue-900 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5" />
-                  Knowledge Graph Relational Link
-                </span>
-                <span className="text-[10px] bg-blue-900 text-blue-200 px-2 py-0.5 rounded">
-                  4 Connected Nodes
-                </span>
-              </div>
-
-              <div className="text-xs space-y-2 text-blue-100">
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Principal Investigator:</span>
-                  <span className="font-semibold text-white">Dr. K. Ramanathan (NCPOR)</span>
-                </div>
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Associated Expedition:</span>
-                  <span className="font-semibold text-white">17th Indian Arctic Expedition</span>
-                </div>
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Open Dataset:</span>
-                  <span className="font-semibold text-amber-300">Kongsfjorden Ice-Pack #ARC-08</span>
-                </div>
-              </div>
-
-              <Link
-                href="/explore"
-                className="w-full text-center block py-2 text-xs font-bold text-white bg-[#0B3D91] hover:bg-blue-700 rounded transition-colors"
-              >
-                Open Full Knowledge Graph →
-              </Link>
             </div>
 
           </div>
