@@ -10,13 +10,10 @@ import {
   Compass, 
   BookOpen, 
   ExternalLink, 
-  Bot, 
   CheckCircle2, 
-  Tag, 
   GraduationCap, 
   Microscope,
-  Calendar,
-  Layers
+  Calendar
 } from 'lucide-react';
 
 export default function FeaturedImageSection() {
@@ -29,12 +26,6 @@ export default function FeaturedImageSection() {
         
         {/* Section Header */}
         <div className="mb-8 pb-4 border-b border-gray-200">
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#138808]"></span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0B3D91]">
-              NCPOR Field Intelligence & AI Outreach Engine
-            </span>
-          </div>
           <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#002147]">
             {t.featuredImageTitle}
           </h2>
@@ -106,32 +97,6 @@ export default function FeaturedImageSection() {
               </div>
 
             </div>
-
-            {/* AI Auto-Extracted Tags (Demonstrates Platform PRD Feature) */}
-            <div className="bg-gray-50 rounded-md p-3.5 border border-gray-200">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
-                <Tag className="w-3.5 h-3.5 text-[#0B3D91]" />
-                <span>AI Auto-Extracted Entities (Mistral Large 3 Pipeline):</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-[#0B3D91] border border-blue-200 rounded">
-                  Species: Ursus maritimus
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Domain: Arctic Cryosphere
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Station: Himadri (Ny-Ålesund)
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-white text-gray-700 border border-gray-300 rounded">
-                  Fjord: Kongsfjorden
-                </span>
-                <span className="px-2.5 py-1 text-xs font-medium bg-amber-50 text-amber-900 border border-amber-300 rounded">
-                  Climate Metric: Sea-Ice Extent
-                </span>
-              </div>
-            </div>
-
           </div>
 
           {/* Right Column: AI Outreach Explanation & Knowledge Graph Connection */}
@@ -208,41 +173,6 @@ export default function FeaturedImageSection() {
                 </Link>
               </div>
 
-            </div>
-
-            {/* Knowledge Graph Card (Connecting entities) */}
-            <div className="bg-[#002147] text-white rounded-lg p-4 border border-blue-900 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                  <Layers className="w-3.5 h-3.5" />
-                  Knowledge Graph Relational Link
-                </span>
-                <span className="text-[10px] bg-blue-900 text-blue-200 px-2 py-0.5 rounded">
-                  4 Connected Nodes
-                </span>
-              </div>
-
-              <div className="text-xs space-y-2 text-blue-100">
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Principal Investigator:</span>
-                  <span className="font-semibold text-white">Dr. K. Ramanathan (NCPOR)</span>
-                </div>
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Associated Expedition:</span>
-                  <span className="font-semibold text-white">17th Indian Arctic Expedition</span>
-                </div>
-                <div className="flex items-center justify-between bg-blue-950/70 p-2 rounded border border-blue-800/60">
-                  <span className="text-gray-300">Open Dataset:</span>
-                  <span className="font-semibold text-amber-300">Kongsfjorden Ice-Pack #ARC-08</span>
-                </div>
-              </div>
-
-              <Link
-                href="/explore"
-                className="w-full text-center block py-2 text-xs font-bold text-white bg-[#0B3D91] hover:bg-blue-700 rounded transition-colors"
-              >
-                Open Full Knowledge Graph →
-              </Link>
             </div>
 
           </div>
