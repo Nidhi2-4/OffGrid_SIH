@@ -55,6 +55,7 @@ export default function PolarMapPage() {
   const [selectedYear, setSelectedYear] = useState<number>(2024);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showFullHeader, setShowFullHeader] = useState(false);
+  const [batterySaver, setBatterySaver] = useState(false);
 
   // Toggle category filters
   const toggleCategory = (cat: EntityCategory) => {
@@ -123,17 +124,14 @@ export default function PolarMapPage() {
     }
   };
 
-  // Reset view to Global and all years
-  const handleResetView = () => {
-    setSelectedYear(2024);
-    setActiveRegion('all');
-    setSelectedEntity(null);
-    setSearchQuery('');
-  };
-
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#000b18] flex flex-col font-sans select-none">
+    <div className={`relative w-screen h-screen overflow-hidden bg-[#000b18] flex flex-col font-sans select-none ${
+      batterySaver ? 'battery-saver-active' : ''
+    }`}>
       
+      {/* Subtle Futuristic Glass Vignette & Screen Reflection (Optimized) */}
+      <div className="pointer-events-none absolute inset-0 z-300 shadow-[inset_0_0_100px_rgba(0,14,35,0.6)]" />
+
       {/* Optional Top Collapsible Portal Navigation */}
       {showFullHeader && (
         <div className="shrink-0 z-600 animate-in slide-in-from-top duration-200">
@@ -144,7 +142,7 @@ export default function PolarMapPage() {
       {/* Main Full-Screen Radar Canvas Container */}
       <div className="relative flex-1 w-full h-full overflow-hidden">
         
-        {/* Flightradar24-Style Top Unified HUD Bar */}
+        {/* Glassmorphism Flightradar24-Style Top HUD Bar */}
         <MapHUD
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -168,6 +166,7 @@ export default function PolarMapPage() {
           onSelectEntity={setSelectedEntity}
           activeRegion={activeRegion}
           tileLayerType={tileLayer}
+          batterySaver={batterySaver}
         />
 
         {/* Bottom Timeline Scrubber */}
@@ -187,6 +186,7 @@ export default function PolarMapPage() {
             entity={selectedEntity}
             onClose={() => setSelectedEntity(null)}
             onSelectEntityId={handleSelectEntityById}
+            batterySaver={batterySaver}
           />
         )}
 

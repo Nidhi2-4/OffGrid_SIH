@@ -45,12 +45,12 @@ export default function MapLegend() {
 
   return (
     <div className="absolute bottom-6 left-4 z-400 pointer-events-auto hidden sm:block">
-      <div className="bg-[#001833]/70 backdrop-blur-xl rounded-xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5)] text-white w-52 sm:w-56 overflow-hidden transition-all duration-200">
+      <div className="relative bg-[#00142B]/40 backdrop-blur-2xl rounded-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] text-white w-52 sm:w-56 overflow-hidden transition-all duration-200 before:absolute before:inset-x-0 before:top-0 before:h-px before:rounded-t-2xl before:bg-linear-to-r before:from-transparent before:via-white/35 before:to-transparent">
         
         {/* Header Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-3 py-2 bg-[#00142B]/75 hover:bg-[#002652]/85 flex items-center justify-between border-b border-white/10 transition-colors backdrop-blur-md"
+          className="w-full px-3 py-2 bg-[#001026]/40 hover:bg-[#001b3d]/60 flex items-center justify-between border-b border-white/10 transition-colors backdrop-blur-xl cursor-pointer"
           title="Toggle Map Legend"
         >
           <div className="flex items-center gap-2">
@@ -68,15 +68,15 @@ export default function MapLegend() {
 
         {/* Collapsible Content */}
         {isOpen && (
-          <div className="p-2 space-y-1.5 text-xs">
+          <div className="p-2 space-y-1 text-xs">
             {legendItems.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.label} className="flex items-center gap-2 px-1 py-0.5 rounded-lg hover:bg-blue-950/60 transition-colors">
-                  <div className={`p-1.5 rounded-md border ${item.borderClass} shrink-0 shadow-xs`}>
+                <div key={item.label} className="flex items-center gap-2 px-1.5 py-1 rounded-xl hover:bg-white/5 transition-colors">
+                  <div className={`p-1.5 rounded-lg border ${item.borderClass} shrink-0 shadow-xs`}>
                     <Icon className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-xs font-semibold text-gray-200">
+                  <span className="text-xs font-semibold text-gray-200 truncate">
                     {item.label}
                   </span>
                 </div>
@@ -89,3 +89,4 @@ export default function MapLegend() {
     </div>
   );
 }
+

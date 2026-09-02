@@ -13,6 +13,7 @@ interface PolarRadarMapProps {
   onSelectEntity: (entity: MapEntity) => void;
   activeRegion: string;
   tileLayerType: MapTileLayer;
+  batterySaver?: boolean;
 }
 
 export default function PolarRadarMap({
@@ -21,6 +22,7 @@ export default function PolarRadarMap({
   onSelectEntity,
   activeRegion,
   tileLayerType,
+  batterySaver = false,
 }: PolarRadarMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -128,19 +130,19 @@ export default function PolarRadarMap({
     const region = POLAR_REGIONS.find((r) => r.id === activeRegion);
     if (region) {
       mapInstanceRef.current.flyTo([region.lat, region.lng], region.zoom, {
-        duration: 1.5,
+        duration: batterySaver ? 0.8 : 1.5,
         easeLinearity: 0.25,
       });
     }
-  }, [activeRegion]);
+  }, [activeRegion, batterySaver]);
 
   // Fly to selected entity
   useEffect(() => {
     if (!mapInstanceRef.current || !selectedEntity) return;
     mapInstanceRef.current.flyTo([selectedEntity.lat, selectedEntity.lng], 9, {
-      duration: 1.2,
+      duration: batterySaver ? 0.6 : 1.2,
     });
-  }, [selectedEntity]);
+  }, [selectedEntity, batterySaver]);
 
   // Render Markers & Routes
   useEffect(() => {
@@ -174,16 +176,16 @@ export default function PolarRadarMap({
     entities.forEach((entity) => {
       const isSelected = selectedEntity?.id === entity.id;
       
-      // Marker HTML generator
+      // Marker HTML generator (respects batterySaver)
       let iconHtml = '';
 
       if (entity.category === 'station') {
         iconHtml = `
           <div class="relative group cursor-pointer">
-            <div class="absolute -inset-2 bg-amber-500/30 rounded-full animate-ping pointer-events-none"></div>
+            ${!batterySaver ? '<div class="absolute -inset-2 bg-amber-500/30 rounded-full animate-ping pointer-events-none"></div>' : ''}
             <div class="relative flex items-center gap-1.5 bg-[#00142B] border-2 ${
               isSelected ? 'border-amber-400 scale-125 shadow-[0_0_20px_#F59E0B]' : 'border-amber-500 shadow-xl'
-            } text-amber-300 px-2 py-1 rounded-full text-[11px] font-bold font-mono transition-transform duration-200 hover:scale-115">
+            } text-amber-300 px-2 py-1 rounded-full text-[11px] font-bold font-mono transition-transform duration-200 hover:scale-110">
               <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg>
@@ -195,10 +197,10 @@ export default function PolarRadarMap({
       } else if (entity.category === 'expedition') {
         iconHtml = `
           <div class="relative group cursor-pointer">
-            <div class="absolute -inset-2 bg-cyan-500/30 rounded-full animate-pulse pointer-events-none"></div>
+            ${!batterySaver ? '<div class="absolute -inset-2 bg-cyan-500/30 rounded-full animate-pulse pointer-events-none"></div>' : ''}
             <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-[#00142B] border-2 ${
               isSelected ? 'border-cyan-300 scale-125 shadow-[0_0_20px_#06B6D4]' : 'border-cyan-400 shadow-xl'
-            } text-cyan-300 transition-transform duration-200 hover:scale-120">
+            } text-cyan-300 transition-transform duration-200 hover:scale-115">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17l2-6h14l2 6M6 17a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zm9 0a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0zM12 4v7m-3-3h6"/>
               </svg>
@@ -210,13 +212,13 @@ export default function PolarRadarMap({
           <div class="relative group cursor-pointer">
             <div class="relative flex items-center justify-center w-7 h-7 rounded-lg bg-[#00142B] border-2 ${
               isSelected ? 'border-emerald-300 scale-125 shadow-[0_0_18px_#10B981]' : 'border-emerald-400 shadow-xl'
-            } text-emerald-300 transition-transform duration-200 hover:scale-120">
+            } text-emerald-300 transition-transform duration-200 hover:scale-115">
               <svg class="w-3.5 h-3.5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <ellipse cx="12" cy="5" rx="9" ry="3" stroke-width="2"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
               </svg>
-              <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              ${!batterySaver ? '<span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>' : ''}
             </div>
           </div>
         `;
@@ -225,7 +227,7 @@ export default function PolarRadarMap({
           <div class="relative group cursor-pointer">
             <div class="relative flex items-center justify-center w-7 h-7 rounded-lg bg-[#00142B] border-2 ${
               isSelected ? 'border-indigo-300 scale-125 shadow-[0_0_18px_#818CF8]' : 'border-indigo-400 shadow-xl'
-            } text-indigo-300 transition-transform duration-200 hover:scale-120">
+            } text-indigo-300 transition-transform duration-200 hover:scale-115">
               <svg class="w-3.5 h-3.5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
@@ -237,7 +239,7 @@ export default function PolarRadarMap({
           <div class="relative group cursor-pointer">
             <div class="relative flex items-center justify-center w-7 h-7 rounded-full bg-[#00142B] border-2 ${
               isSelected ? 'border-pink-300 scale-125 shadow-[0_0_18px_#EC4899]' : 'border-pink-400 shadow-xl'
-            } text-pink-300 transition-transform duration-200 hover:scale-120">
+            } text-pink-300 transition-transform duration-200 hover:scale-115">
               <svg class="w-3.5 h-3.5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
                 <circle cx="12" cy="13" r="3" stroke-width="2"/>
@@ -259,15 +261,15 @@ export default function PolarRadarMap({
       // Flightradar24-style tooltip on hover
       marker.bindTooltip(
         `
-        <div class="bg-[#000E20] text-white p-2 rounded-lg border border-blue-600/50 shadow-2xl text-xs max-w-xs font-sans">
-          <div class="font-bold text-cyan-300 flex items-center justify-between gap-2 mb-0.5">
-            <span>${entity.title}</span>
-            <span class="text-[9px] uppercase font-mono px-1 py-0.2 rounded bg-blue-900/60 text-amber-300">${entity.category}</span>
+        <div class="bg-[#000E20]/95 backdrop-blur-xl text-white p-2.5 rounded-xl border border-white/20 shadow-2xl text-xs max-w-xs font-sans">
+          <div class="font-bold text-cyan-300 flex items-center justify-between gap-2 mb-1">
+            <span class="truncate">${entity.title}</span>
+            <span class="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-blue-900/80 text-amber-300 shrink-0">${entity.category}</span>
           </div>
           <div class="text-[11px] text-gray-300 line-clamp-2">${entity.description}</div>
-          <div class="mt-1 pt-1 border-t border-blue-900/60 flex items-center justify-between text-[10px] text-gray-400 font-mono">
+          <div class="mt-1.5 pt-1.5 border-t border-white/10 flex items-center justify-between text-[10px] text-gray-400 font-mono">
             <span>${entity.lat.toFixed(2)}°, ${entity.lng.toFixed(2)}°</span>
-            <span class="text-cyan-400">Click to Inspect →</span>
+            <span class="text-cyan-400 font-bold">Inspect →</span>
           </div>
         </div>
         `,
@@ -284,10 +286,10 @@ export default function PolarRadarMap({
 
       markerGroupRef.current?.addLayer(marker);
     });
-  }, [entities, selectedEntity, onSelectEntity]);
+  }, [entities, selectedEntity, onSelectEntity, batterySaver]);
 
   return (
-    <div className="w-full h-full relative bg-[#000b18]">
+    <div className={`w-full h-full relative bg-[#000b18] ${batterySaver ? 'battery-saver-eco-filter' : ''}`}>
       <div ref={mapContainerRef} className="w-full h-full z-10" />
       
       {/* Global CSS for Leaflet styling */}
@@ -310,21 +312,27 @@ export default function PolarRadarMap({
           display: none !important;
         }
         .leaflet-control-zoom a {
-          background-color: #001833 !important;
+          background-color: #00142B !important;
           color: #93C5FD !important;
-          border-color: #1E3A8A !important;
+          border-color: rgba(255, 255, 255, 0.2) !important;
+          border-radius: 8px !important;
+          backdrop-filter: blur(12px) !important;
         }
         .leaflet-control-zoom a:hover {
           background-color: #0B3D91 !important;
           color: #FFFFFF !important;
         }
         .leaflet-control-attribution {
-          background-color: rgba(0, 20, 43, 0.8) !important;
+          background-color: rgba(0, 20, 43, 0.85) !important;
           color: #64748B !important;
           font-size: 10px !important;
+          border-radius: 6px !important;
         }
         .leaflet-control-attribution a {
           color: #94A3B8 !important;
+        }
+        .battery-saver-eco-filter {
+          filter: contrast(1.05) brightness(0.95);
         }
       `}</style>
     </div>
