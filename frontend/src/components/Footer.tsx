@@ -16,7 +16,7 @@ export default function Footer() {
   const { t, language } = useLanguage();
 
   return (
-    <footer className="bg-[#001833] text-gray-200 text-xs border-t-4 border-[#0B3D91]">
+    <footer className="bg-[#06242F] text-gray-200 text-xs border-t-4 border-[#0F5167]">
 
       {/* Tricolor Mini Accent */}
       <div className="h-1 w-full flex">
@@ -31,15 +31,13 @@ export default function Footer() {
           {/* Col 1: Institutional Identity */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center">
-              <div className="bg-white/95 rounded-md px-3 py-1.5 shadow-sm inline-block">
-                <Image
-                  src="/Himsagar.png"
-                  alt="HimSagar Logo"
-                  width={240}
-                  height={68}
-                  className="h-10 sm:h-12 w-auto object-contain"
-                />
-              </div>
+              <Image
+                src="/Himsagar.png"
+                alt="HimSagar Logo"
+                width={240}
+                height={70}
+                className="h-12 sm:h-14 w-auto object-contain filter drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)] drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] hover:scale-103 transition-transform duration-300"
+              />
             </div>
 
             <p className="text-gray-300 text-xs leading-relaxed font-sans">
@@ -51,7 +49,7 @@ export default function Footer() {
 
           {/* Col 2: Research Portals (Quick Links) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-blue-800 pb-1.5 flex items-center gap-1.5">
+            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-[#0F5167]/80 pb-1.5 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
               <span>{t.quickLinks}</span>
             </h4>
@@ -91,32 +89,32 @@ export default function Footer() {
 
           {/* Col 3: Polar Stations & Expeditions */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-blue-800 pb-1.5 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-[#0F5167]/80 pb-1.5 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7BCCEA]"></span>
               <span>Indian Research Bases</span>
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/map?station=himadri" className="text-white hover:text-amber-300 transition-colors flex items-center gap-1.5 font-medium group">
-                  <ChevronRight className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-3 h-3 text-[#7BCCEA] group-hover:translate-x-0.5 transition-transform" />
                   <span>Himadri (Ny-Ålesund, Arctic)</span>
                 </Link>
               </li>
               <li>
                 <Link href="/map?station=bharati" className="text-white hover:text-amber-300 transition-colors flex items-center gap-1.5 font-medium group">
-                  <ChevronRight className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-3 h-3 text-[#7BCCEA] group-hover:translate-x-0.5 transition-transform" />
                   <span>Bharati (Larsemann Hills, Antarctica)</span>
                 </Link>
               </li>
               <li>
                 <Link href="/map?station=maitri" className="text-white hover:text-amber-300 transition-colors flex items-center gap-1.5 font-medium group">
-                  <ChevronRight className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-3 h-3 text-[#7BCCEA] group-hover:translate-x-0.5 transition-transform" />
                   <span>Maitri (Schirmacher Oasis, Antarctica)</span>
                 </Link>
               </li>
               <li>
                 <Link href="/map?station=himansh" className="text-white hover:text-amber-300 transition-colors flex items-center gap-1.5 font-medium group">
-                  <ChevronRight className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-3 h-3 text-[#7BCCEA] group-hover:translate-x-0.5 transition-transform" />
                   <span>Himansh (Spiti, High Himalayas)</span>
                 </Link>
               </li>
@@ -125,7 +123,7 @@ export default function Footer() {
 
           {/* Col 4: Important Official Portals */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-blue-800 pb-1.5 flex items-center gap-1.5">
+            <h4 className="text-white font-bold font-serif uppercase tracking-wider text-xs border-b border-[#0F5167]/80 pb-1.5 flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               <span>External Portals</span>
             </h4>
@@ -160,7 +158,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
-        <div className="mt-10 pt-6 border-t border-blue-900 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-gray-300">
+        <div className="mt-10 pt-6 border-t border-[#0F5167]/50 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-gray-300">
           <div>
             <p className="text-gray-200">{t.copyrightNotice}</p>
             <p className="text-gray-400 mt-0.5">{t.lastUpdated}</p>

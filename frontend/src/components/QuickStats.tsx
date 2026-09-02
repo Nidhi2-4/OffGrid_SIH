@@ -47,27 +47,27 @@ export default function QuickStats() {
   ];
 
   return (
-    <section className="bg-[#001f42] text-white py-6 sm:py-8 border-y border-blue-950 shadow-inner">
+    <section className="bg-[#093443] text-white py-7 sm:py-9 border-y border-[#06242F] shadow-inner">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4.5 text-center">
           {stats.map((st, i) => {
             const Icon = st.icon;
             return (
               <div 
                 key={i} 
-                className="flex flex-col items-center p-3 rounded-lg bg-blue-950/50 hover:bg-blue-900/40 border border-blue-800/40 hover:border-blue-700/70 transition-all duration-200 group"
+                className="flex flex-col items-center p-3.5 sm:p-4 rounded-xl bg-[#0F5167]/60 hover:bg-[#0F5167]/90 border border-[#7BCCEA]/25 hover:border-[#7BCCEA]/70 transition-all duration-200 group shadow-sm hover:shadow-md"
               >
-                <div className="p-1.5 rounded-full bg-blue-900/60 text-amber-400 mb-1.5 group-hover:scale-110 transition-transform">
-                  <Icon className="w-4 h-4" />
+                <div className="p-2 rounded-full bg-[#093443] text-[#7BCCEA] mb-2 group-hover:scale-110 group-hover:text-amber-300 transition-transform">
+                  <Icon className="w-4.5 h-4.5" />
                 </div>
-                <span className="text-xl sm:text-2xl font-extrabold font-serif text-white tracking-tight">
+                <span className="text-2xl sm:text-3xl font-extrabold font-serif text-white tracking-tight">
                   {st.value}
                 </span>
-                <span className="text-[11px] font-bold text-blue-200 mt-0.5 uppercase tracking-wide">
+                <span className="text-xs font-bold text-[#7BCCEA] mt-1 uppercase tracking-wide">
                   {st.label}
                 </span>
-                <span className="text-[10px] text-gray-400 mt-0.5 line-clamp-1">
+                <span className="text-[11px] text-teal-100/80 mt-0.5 line-clamp-1">
                   {st.sub}
                 </span>
               </div>

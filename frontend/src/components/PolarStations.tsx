@@ -83,12 +83,12 @@ export default function PolarStations() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 pb-3 border-b border-gray-200 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Snowflake className="w-4 h-4 text-[#0B3D91]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0B3D91]">
+              <Snowflake className="w-4 h-4 text-[#0F5167]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#0F5167]">
                 National Polar Infrastructure
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#002147]">
+            <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#093443]">
               {t.stationsTitle}
             </h2>
             <p className="text-xs sm:text-sm text-gray-600 mt-1 font-sans">
@@ -98,7 +98,7 @@ export default function PolarStations() {
 
           <Link
             href="/map"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0B3D91] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0F5167] hover:underline"
           >
             <span>{t.viewAllStations}</span>
           </Link>
@@ -109,7 +109,7 @@ export default function PolarStations() {
           {stations.map((st) => (
             <div
               key={st.id}
-              className="bg-white rounded-lg border border-gray-200 hover:border-[#0B3D91] shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
+              className="bg-white rounded-lg border border-gray-200 hover:border-[#0F5167] shadow-2xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
             >
               <div className="p-4 space-y-3">
                 {/* Station Region Badge & Live Status */}
@@ -124,7 +124,7 @@ export default function PolarStations() {
                 </div>
 
                 {/* Station Name */}
-                <h3 className="text-base font-bold font-serif text-[#002147] group-hover:text-[#0B3D91] transition-colors">
+                <h3 className="text-base font-bold font-serif text-[#093443] group-hover:text-[#0F5167] transition-colors">
                   {st.name}
                 </h3>
 
@@ -135,7 +135,7 @@ export default function PolarStations() {
                     <span className="line-clamp-1">{st.location}</span>
                   </div>
                   <div className="flex items-center gap-1.5 font-mono text-[11px] text-gray-500">
-                    <Compass className="w-3 h-3 text-[#0B3D91]" />
+                    <Compass className="w-3 h-3 text-[#0F5167]" />
                     <span>{st.coords}</span>
                   </div>
                 </div>
